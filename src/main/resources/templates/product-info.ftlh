@@ -6,6 +6,9 @@
 <body>
 <h1>CyberKirych</h1><hr>
 <h4>Информация о товаре</h4>
+<#list images as img>
+    <img src="/images/${img.id}" height="360px"/><br><br>
+</#list>
 <b>Название товара: </b>${product.title}<br>
 <b>Описание товара: </b>${product.description}<br>
 <b>Цена: </b>${product.price}<br>
