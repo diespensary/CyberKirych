@@ -6,11 +6,11 @@ import com.example.CyberKirych.repositories.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -69,6 +69,10 @@ public class ProductService {
 
     @Transactional
     public Product getProductByID(Integer id) {
-        return productRepository.findByIdWithImages(id);
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            Hibernate.initialize(product.getImages()); // Инициализация ленивой коллекции
+        }
+        return product;
     }
 }
