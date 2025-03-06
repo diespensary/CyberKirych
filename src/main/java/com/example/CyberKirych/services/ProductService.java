@@ -3,12 +3,14 @@ package com.example.CyberKirych.services;
 import com.example.CyberKirych.models.Image;
 import com.example.CyberKirych.models.Product;
 import com.example.CyberKirych.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,6 +49,7 @@ public class ProductService {
             Image previousImage = product.getImages().get(0);
             product.setPreviewImageId(previousImage.getId());
         }
+
         productRepository.save(product);
     }
 
@@ -64,7 +67,8 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
+    @Transactional
     public Product getProductByID(Integer id) {
-        return productRepository.findById(id).orElse(null);
+        return productRepository.findByIdWithImages(id);
     }
 }

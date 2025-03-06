@@ -42,7 +42,7 @@ public class Product {
     @Column(name = "previewImageId")
     private Integer previewImageId;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<Image> images = new ArrayList<>();
 
     @PostConstruct
